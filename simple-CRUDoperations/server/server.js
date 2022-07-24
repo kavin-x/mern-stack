@@ -12,6 +12,15 @@ mongoose.connect(
     useNewUrlParser: true,
   }
 );
+app.get("/getUsers", (req, res) => {
+  userModel.find({}, (err, result) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
 
 app.post("/insert", async (req, res) => {
   const name = req.body.user;
@@ -23,6 +32,28 @@ app.post("/insert", async (req, res) => {
     console.log(error);
   }
 });
+
+app.put("/updateUser", async (req, res) => {
+  const id = req.body.id;
+  const newUserName = req.body.newUserName;
+
+  try {
+    await userModel.findById(id, (err, updateUser) => {
+      updateUser.user = newUserName;
+      updateUser.save();
+      res.send("update");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id;
+  await userModel.findByIdAndRemove(id).exec();
+  res.send("deleted");
+});
+
 app.listen(3001, () => {
   console.log("up and running");
 });
