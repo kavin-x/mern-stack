@@ -1,2 +1,2 @@
 # mern-stack
-learning node.js and express using by build mern applications
+learning node.js and express by build mern applications
