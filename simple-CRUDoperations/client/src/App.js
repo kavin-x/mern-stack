@@ -21,7 +21,7 @@ function App() {
     });
   };
   const deleteUser = (id) => {
-    Axios.delete(`http://localhost:3001/updateUser/${id}`)
+    Axios.delete(`http://localhost:3001/delete/${id}`)
 
   };
   useEffect(() => {
